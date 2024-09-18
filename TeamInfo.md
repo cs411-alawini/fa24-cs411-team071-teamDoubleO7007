@@ -12,6 +12,8 @@
 | Member1     |    dduenas2@illinois.edu   |
 | Member2     |        Alyson C      |
 | Member2     |   alysonc3@illinois.edu  |
+| Member3     |        Sam Alsayed      |
+| Member3     |   alsayed1@illinois.edu  |
 
 ## Project Information
 
