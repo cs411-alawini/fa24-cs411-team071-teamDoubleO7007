@@ -25,4 +25,4 @@
 
 ## Project Summary
 
-This is a summary of the project!
+This project involves creating a database that combines information about vegetables, precipitation patterns, and soil quality across different regions of the U.S. The goal is to help users identify the best areas to grow specific vegetables by analyzing these factors. The database will store data on optimal growing conditions for various vegetables, regional climate patterns, and soil quality metrics. A user-friendly interface will allow users to input a vegetable and receive recommendations on which U.S. regions are best suited for cultivating it, based on precipitation and soil characteristics.
