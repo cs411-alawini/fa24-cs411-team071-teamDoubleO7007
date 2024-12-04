@@ -1,10 +1,10 @@
 export interface Crop {
-    cropName : String,
+    crop_name : String,
     humidity : Number,
-    temperature : Number,
-    soilPh : Number,
+    temp : Number,
+    soil_ph : Number,
     nitrogen : Number,
     phosphorus: Number,
     potassium : Number,
-    averageRainfall : Number
+    average_rain : Number
 }
