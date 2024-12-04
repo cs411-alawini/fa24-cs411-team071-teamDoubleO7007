@@ -1,6 +1,6 @@
 import { Crop } from "../models/cropType"
 
-import { cropData } from "../../../data/mockData"
+// import { cropData } from "../../../data/mockData"
 import pool from "./connections"
 import { RowDataPacket } from "mysql2"
 

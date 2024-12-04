@@ -7,8 +7,8 @@ const CropSelector = ({ onSelectCrops }) => {
   const [selectedCrops, setSelectedCrops] = useState([]);
 
   useEffect(() => {
-    axios.get('/api/crops')
-      .then(response => setCrops(response.data))
+    axios.get('http://localhost:3007/api/crops')
+      .then(response => {setCrops(response.data);})
       .catch(error => console.error(error));
   }, []);
 
@@ -24,17 +24,21 @@ const CropSelector = ({ onSelectCrops }) => {
   return (
     <div className="crop-selector">
       <h3>Select Crops:</h3>
-      {crops.map((crop) => (
-        <label key={crop} className="crop-checkbox">
-          <input
-            type="checkbox"
-            value={crop}
-            checked={selectedCrops.includes(crop)}
-            onChange={() => handleCheckboxChange(crop)}
-          />
-          {crop}
-        </label>
-      ))}
+      <div className="grid-container">
+        {crops.map((crop) => (
+          <div key={crop.crop_name} className="grid-item">
+            <label className="crop-checkbox">
+              <input
+                type="checkbox"
+                value={crop.crop_name}
+                checked={selectedCrops.includes(crop.crop_name)}
+                onChange={() => handleCheckboxChange(crop.crop_name)}
+              />
+              {crop.crop_name}
+            </label>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
