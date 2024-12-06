@@ -15,6 +15,17 @@ const pool = mysql.createPool({
   // port: 3306
 });
 
+export const db = {
+  query: async <T>(query: string, params?: any[]): Promise<T[]> => {
+    const [rows] = await pool.query(query, params);
+    return rows as T[];
+  },
+  execute: async <T>(query: string, params?: any[]): Promise<T> => {
+    const [result] = await pool.execute(query, params);
+    return result as T;
+  },
+};
+
 // const connection = await pool.getConnection();
 
 console.log('Connected to MySQL database');
