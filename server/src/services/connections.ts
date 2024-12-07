@@ -26,6 +26,7 @@ export const db = {
   },
 };
 
+
 // const connection = await pool.getConnection();
 
 console.log('Connected to MySQL database');

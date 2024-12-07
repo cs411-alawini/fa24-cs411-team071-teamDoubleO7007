@@ -1,30 +1,36 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import './CropSelector.css';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import "./CropSelector.css";
 
-const CropSelector = ({ onSelectCrops }) => {
+const CropSelector = ({ onSelectCrops, onAddToGarden, gardenCrops }) => {
   const [crops, setCrops] = useState([]); // Current page of crops
-  const [searchQuery, setSearchQuery] = useState(''); // Search query
+  const [searchQuery, setSearchQuery] = useState(""); // Search query
   const [page, setPage] = useState(1); // Current page
   const itemsPerPage = 24; // Items per page
   const [totalPages, setTotalPages] = useState(1); // Total number of pages
+  const [selectedCrops, setSelectedCrops] = useState(gardenCrops || []); // Tracks selected crops
+
+  // Sync selectedCrops with gardenCrops when they change
+  useEffect(() => {
+    setSelectedCrops(gardenCrops);
+  }, [gardenCrops]);
 
   // Fetch crops from API
   useEffect(() => {
     const fetchCrops = async () => {
       try {
-        const response = await axios.get('http://localhost:3007/api/crops', {
+        const response = await axios.get("http://localhost:3007/api/crops", {
           params: {
             limit: itemsPerPage,
             offset: (page - 1) * itemsPerPage,
-            search: searchQuery, // Pass search query to backend
+            search: searchQuery,
           },
         });
 
         setCrops(response.data.crops); // Assume API returns an object with crops and total count
         setTotalPages(Math.ceil(response.data.total / itemsPerPage));
       } catch (error) {
-        console.error('Error fetching crops:', error);
+        console.error("Error fetching crops:", error);
       }
     };
 
@@ -35,6 +41,26 @@ const CropSelector = ({ onSelectCrops }) => {
   const handleSearch = (query) => {
     setSearchQuery(query);
     setPage(1); // Reset to the first page when searching
+  };
+
+  // Handle crop selection/deselection
+  const handleCheckboxChange = (cropName) => {
+    const isSelected = selectedCrops.includes(cropName);
+
+    // Update the selected crops list
+    const updatedCrops = isSelected
+      ? selectedCrops.filter((name) => name !== cropName) // Remove crop if unchecked
+      : [...selectedCrops, cropName]; // Add crop if checked
+
+    setSelectedCrops(updatedCrops);
+    onSelectCrops(updatedCrops); // Notify parent component of selected crops
+
+    // Add or remove crop from the garden
+    if (isSelected) {
+      onAddToGarden(cropName, "remove"); // Remove from garden if unchecked
+    } else {
+      onAddToGarden(cropName, "add"); // Add to garden if checked
+    }
   };
 
   return (
@@ -56,7 +82,8 @@ const CropSelector = ({ onSelectCrops }) => {
               <input
                 type="checkbox"
                 value={crop.crop_name}
-                onChange={(e) => onSelectCrops(e.target.value)}
+                checked={selectedCrops.includes(crop.crop_name)}
+                onChange={() => handleCheckboxChange(crop.crop_name)}
               />
               {crop.crop_name}
             </label>
@@ -71,7 +98,9 @@ const CropSelector = ({ onSelectCrops }) => {
         >
           Previous
         </button>
-        <span>Page {page} of {totalPages}</span>
+        <span>
+          Page {page} of {totalPages}
+        </span>
         <button
           disabled={page === totalPages}
           onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}

@@ -1,0 +1,34 @@
+.garden-manager {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f4f4f4;
+    width: 100%; /* Fit the width of the sidebar */
+    box-sizing: border-box;
+    height: 100%; /* Take full height of the sidebar */
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .garden-crops {
+    flex-grow: 1; /* Make the crop list take up remaining space */
+    overflow-y: auto; /* Allow scrolling only if the content exceeds the height */
+    margin-top: 10px;
+  }
+  
+  .garden-crops ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .garden-crops li {
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+    font-size: 14px;
+  }
+  
+  .garden-crops li:last-child {
+    border-bottom: none;
+  }
+  

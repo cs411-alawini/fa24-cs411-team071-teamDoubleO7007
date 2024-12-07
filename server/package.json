@@ -12,7 +12,7 @@
   "description": "",
   "devDependencies": {
     "@types/cors": "^2.8.17",
-    "@types/express": "^5.0.0",
+    "@types/express": "^4.17.21",
     "@types/node": "^22.9.0",
     "body-parser": "^1.20.3",
     "express": "^4.21.1",
