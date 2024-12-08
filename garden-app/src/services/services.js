@@ -46,3 +46,17 @@ export const deleteGardenPlant = (plantID) => {
         .delete(`/gardenEntryRoute/${plantID}`)
         .then((response) => response.data);
 };
+
+
+export const getGardenProfits = () => {
+    return httpClient
+        .get(`/profit`)
+        .then((response) => response.data);
+};
+
+
+export const getPlantProfit = (plantID) => {
+    return httpClient
+        .get(`/profit/${plantID}`)
+        .then((response) => response.data);
+};
