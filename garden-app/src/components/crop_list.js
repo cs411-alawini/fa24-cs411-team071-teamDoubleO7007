@@ -35,7 +35,7 @@ function CropList({ setPlantToAdd }) {
             }}
         >
             <TextField id="outlined-basic" label="Crops" variant="outlined" onChange={(e) => handleSearch(e.target.value)} value={searchQuery} />
-            <Stack direction="column" spacing={1} sx={{ justifyContent: "center", alignItems: "center", mt: 2 }}>
+            <Stack direction="column" spacing={1} sx={{ justifyContent: "center", alignItems: "center", mt: 2}}>
                 {crops.map((c) => {
 
                     return (

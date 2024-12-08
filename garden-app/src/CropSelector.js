@@ -138,7 +138,7 @@ const CropSelector = ({ onSelectCrops, gardenCrops }) => {
           <Box
             sx={{
               display: "flex",
-              justifyContent: "space-between",
+              justifyContent: "center",
               flexDirection: "column",
               alignItems: "center"
             }}
