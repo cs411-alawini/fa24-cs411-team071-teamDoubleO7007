@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
+import IconButton, { IconButtonProps } from '@mui/material/IconButton';
+import AddIcon from '@mui/icons-material/Add';
 
 
 function CropListItem({ crop, setPlantToAdd }) {

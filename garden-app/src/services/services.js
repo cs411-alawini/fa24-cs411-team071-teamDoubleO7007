@@ -60,3 +60,9 @@ export const getPlantProfit = (plantID) => {
         .get(`/profit/${plantID}`)
         .then((response) => response.data);
 };
+
+export const updateGardenPlant = (plantID, vendor) => {
+    return httpClient
+        .put(`/gardenEntryRoute/${plantID}`, { vendor_Name: vendor })
+        .then((response) => response.data);
+};

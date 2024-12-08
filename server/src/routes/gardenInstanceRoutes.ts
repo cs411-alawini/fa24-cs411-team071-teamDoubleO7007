@@ -64,4 +64,22 @@ router.delete("/:id", async (req: Request, res: Response) => {
     }
 });
 
+router.put("/:id", async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const {vendor_Name} = req.body;
+
+    if (!id) {
+        return res.status(400).json({ error: "Crop Id Required to delete" });
+    }
+
+    try {
+        const query = `UPDATE garden_instance SET vendor_Name = ? WHERE id = ?;`;
+        await db.query(query, [vendor_Name, id]);
+        res.status(200).json({ message: "Crop updated from garden successfully" });
+    } catch (err) {
+        console.error("Error updating crop from garden:", err);
+        res.status(500).json({ error: "Failed to rudate crop from garden" });
+    }
+});
+
 export default router;
