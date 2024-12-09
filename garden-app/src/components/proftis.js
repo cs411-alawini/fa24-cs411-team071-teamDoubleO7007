@@ -8,25 +8,28 @@ function Profits({ gardenCrops }) {
     useEffect(() => {
         const fetchCities = async () => {
             const data = await getGardenProfits()
+            const dataArray = Array.isArray(data) ? data : [data];
             console.log('gettinr pi')
-            console.log(data)
-            if (data[0]['price']) {
-                if (data[0]['price'] === profit) {
+            console.log(dataArray)
+            if (dataArray[0]['price']) {
+                if (dataArray[0]['price'] === profit) {
                     const data2 = await getGardenProfits()
-                    if (data2[0]['price']) {
-                        setProfit(data2[0]['price'])
+                    const dataArray2 = Array.isArray(data2) ? data2 : [data2];
+                    if (dataArray2[0]['price']) {
+                        setProfit(dataArray2[0]['price'])
                     } else {
                         setProfit(0)
                     }
                 } else {
-                    setProfit(data[0]['price'])
+                    setProfit(dataArray[0]['price'])
                 }
 
             } else {
                 if (0 === profit) {
                     const data2 = await getGardenProfits()
-                    if (data2[0]['price']) {
-                        setProfit(data2[0]['price'])
+                    const dataArray2 = Array.isArray(data2) ? data2 : [data2];
+                    if (dataArray2[0]['price']) {
+                        setProfit(dataArray2[0]['price'])
                     } else {
                         setProfit(0)
                     }
@@ -37,7 +40,11 @@ function Profits({ gardenCrops }) {
 
         };
 
-        fetchCities();
+        if (gardenCrops.length === 0) {
+            setProfit(0);
+        } else {
+            fetchCities();
+        }
     }, [gardenCrops]);
 
     return (

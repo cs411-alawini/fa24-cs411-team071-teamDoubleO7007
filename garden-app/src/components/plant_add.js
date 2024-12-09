@@ -24,30 +24,58 @@ function PlantAdd({ plantToAdd, setPlantToAdd, setOrderby, onSelectCrops }) {
     }
 
     const [isValid, setIsValid] = useState(shouldAdd)
+    const [error, setError] = useState(null);
 
     useEffect(() => {
-        setIsValid(shouldAdd)
+        setIsValid(shouldAdd())
     
       }, [plantToAdd]);
 
 
-    const onAdd = () => {
-        const copyplant = {... plantToAdd}
-        copyplant['id'] = uuidv4()
-        addGardenPlant(copyplant)
-        onSelectCrops((prev) => {
-            const copy = [...prev]
-            copy.push(copyplant)
-            return copy
-        })
-        setPlantToAdd({ id: "", crop_Name: "", city_name: "", vendor_Name: "" })
-        setOrderby("")
+    // const onAdd = () => {
+    //     const copyplant = {... plantToAdd}
+    //     copyplant['id'] = uuidv4()
+    //     addGardenPlant(copyplant)
+    //     onSelectCrops((prev) => {
+    //         const copy = [...prev]
+    //         copy.push(copyplant)
+    //         return copy
+    //     })
+    //     setPlantToAdd({ id: "", crop_Name: "", city_name: "", vendor_Name: "" })
+    //     setOrderby("")
+    // }
+
+    const onAdd = async () => {
+        try {
+            const copyplant = {... plantToAdd}
+            copyplant['id'] = uuidv4()
+            await addGardenPlant(copyplant)
+            onSelectCrops((prev) => {
+                const copy = [...prev]
+                copy.push(copyplant)
+                return copy
+            })
+            setPlantToAdd({ id: "", crop_Name: "", city_name: "", vendor_Name: "" })
+            setOrderby("")
+            setError(null)
+        } catch (error) {
+            if (error.response && error.response.data.error) {
+                setError(error.response.data.error);
+            } else {
+                setError("An unexpected error occurred");
+            }
+        }
     }
 
     return (
 
         <Card sx={{ maxWidth: 1200, mb: 3, mt: 3 }}>
             <CardContent>
+                {error && (
+                    <Typography variant="body2" color="error" sx={{ mb: 2 }}>
+                        {error}
+                    </Typography>
+                )}
                 <Typography gutterBottom variant="h5" component="div">
                     Selected Crop Information
                 </Typography>

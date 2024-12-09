@@ -42,7 +42,12 @@ router.post("/", async (req: Request, res: Response) => {
         res.status(201).json({ message: "Crop added to garden successfully" });
     } catch (err) {
         console.error("Error adding crop to garden:", err);
-        res.status(500).json({ error: "Failed to add crop to garden" });
+
+        if (err.code === 'ER_DUP_ENTRY') {
+            res.status(400).json({ error: "This crop/city combination already exists" });
+        } else{
+            res.status(500).json({ error: "Failed to add crop to garden" });
+        }
     }
 });
 
